@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "387825747305",
+    "firebase_url": "https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "smart-agriculture-3816e",
+    "storage_bucket": "smart-agriculture-3816e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387825747305:android:2e04c9546bac7bfe7b29f8",
+        "android_client_info": {
+          "package_name": "com.abhion.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHowIZG2gE3W20hVXl-Q4eE8dz7sjut_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
