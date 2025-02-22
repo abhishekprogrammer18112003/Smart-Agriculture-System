@@ -41,6 +41,7 @@ step 7 - Deploy the Application
 BASE URL - https://fyp-v7p2.onrender.com
 
 1) SEND OTP - /auth/send-otp
+   
      Request -
          {
             "email": "abhishekprogrammer18112003@gmail.com"
@@ -53,6 +54,7 @@ BASE URL - https://fyp-v7p2.onrender.com
 
 
 2) VERIFY OTP - /auth/verify-otp
+   
      Request - 
        {
           "apiKey": "user456",
@@ -68,7 +70,8 @@ BASE URL - https://fyp-v7p2.onrender.com
         "message": "User registered successfully."
      }
 
-3) LOGIN USER - auth/login
+5) LOGIN USER - auth/login
+   
     Request -
        {
           "email": "tech.abhishekchauhan@gmail.com",
