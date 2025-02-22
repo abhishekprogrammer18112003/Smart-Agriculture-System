@@ -1,7 +1,9 @@
 
 
 
-const String BASE_URL = "http://localhost:8080";
+const String BASE_URL = "https://fyp-v7p2.onrender.com";
 
 //=========AUTH API====================
 const String SEND_OTP = "${BASE_URL}/auth/send-otp";
+const String VERIFY_OTP = "${BASE_URL}/auth/verify-otp";
+const String LOGIN = "${BASE_URL}/auth/login";

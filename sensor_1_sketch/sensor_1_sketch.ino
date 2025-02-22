@@ -10,7 +10,7 @@ const char password[] = "prasqwer4321";
 #define FIREBASE_HOST "https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define FIREBASE_AUTH "AIzaSyDaEdhRdcYII01bkKm9bgRtl6lUG9AgCXQ"
 const char apiKey[] = "user123";
-const char sensorName[] = "Sensor_system_1";
+const char sensorName[] = "Sensor_system_2";
 bool pending = true;
 
 // Sensor Pins
@@ -79,7 +79,7 @@ void resetSensorSchema() {
     Firebase.setInt(fbdo, sensorPath + "/moisture1", 0);
     Firebase.setInt(fbdo, sensorPath + "/moisture2", 0);
     Firebase.setInt(fbdo, sensorPath + "/humidity", 0);
-    Firebase.setInt(fbdo, sensorPath + "/temp", 0);
+    Firebase.setInt(fbdo, sensorPath + "/temp", 0);   
     Firebase.setBool(fbdo, sensorPath + "/isMotorOn", false);
 }
 

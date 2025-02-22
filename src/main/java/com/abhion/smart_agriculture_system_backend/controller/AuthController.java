@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import com.google.firebase.database.Query;
 
 @RestController
 @RequestMapping("/auth")
@@ -43,12 +44,21 @@ public class AuthController {
         Map<String, String> response = new HashMap<>();
         CompletableFuture<Map<String, String>> future = new CompletableFuture<>();
 
-        DatabaseReference userRef = databaseReference.orderByChild("email").equalTo(email).getRef();
-
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()) {
+                boolean emailExists = false;
+
+                // Iterate through all API keys (user nodes)
+                for (DataSnapshot userNode : snapshot.getChildren()) {
+                    String storedEmail = userNode.child("email").getValue(String.class);
+                    if (storedEmail != null && storedEmail.equalsIgnoreCase(email)) {
+                        emailExists = true;
+                        break;
+                    }
+                }
+
+                if (emailExists) {
                     response.put("message", "User already exists. Please login.");
                     future.complete(response);
                     return;
