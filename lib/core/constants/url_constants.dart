@@ -1,7 +1,7 @@
 
 
 
-const String BASE_URL = "https://fyp-v7p2.onrender.com";
+const String BASE_URL = "https://fyp-54rw.onrender.com";
 
 //=========AUTH API====================
 const String SEND_OTP = "${BASE_URL}/auth/send-otp";

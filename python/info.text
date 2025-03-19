@@ -1,0 +1,31 @@
+generated a 100k-entry structured dataset for Money Plant and 9 O'Clock Plant while ensuring: ✅ No duplicate data
+✅ No redundant information
+✅ Accurate plant conditions based on humidity, temperature, and soil moisture
+
+
+Step 1: Process this dataset (encoding & normalization).
+Step 2: Train an optimized model to achieve 90%+ accuracy.
+Supervised Learning:
+
+The model is trained on labeled data (Motor State: ON/OFF).
+It learns patterns between input features (soil moisture, temperature, humidity) and the output label (Motor State).
+Data Preprocessing:
+
+Categorical feature encoding (Label Encoding).
+Feature Scaling (Standardization) for numerical values.
+Handling class imbalance using SMOTE.
+Machine Learning Models:
+
+Uses Random Forest, an Ensemble Learning method.
+Other models like XGBoost, LightGBM, and Neural Networks can be used for further optimization.
+Evaluation Metrics:
+
+Accuracy Score is used to evaluate how well the model predicts motor ON/OFF state.
+
+
+
+Step 3: Build FastAPI for Smart Irrigation System
+Now that you have trained and saved the best model (smart_irrigation_best_model.pkl), we will: ✅ Load the trained model.
+✅ Create a FastAPI application.
+✅ Define an endpoint for predicting Motor State (ON/OFF).
+✅ Deploy and test the API.

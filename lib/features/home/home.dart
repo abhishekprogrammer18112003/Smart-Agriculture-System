@@ -136,121 +136,132 @@ class _SensorDataWidgetState extends State<SensorDataWidget> {
   }
 
   Widget _buildSensorDataCard(
-      Map<String, dynamic> sensor, HomeProvider homeProvider) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          "${sensor["sensor_name"]} Data",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            color: Colors.amber.shade100,
-            elevation: 3,
-            child: Container(
-              height: 400,
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildSensorDataRow(
-                          "Moisture1",
-                          sensor["moisture1"].toString(),
-                          FontAwesomeIcons.tint),
-                      _buildSensorDataRow(
-                          "Moisture2",
-                          sensor["moisture2"].toString(),
-                          FontAwesomeIcons.tint),
-                    ],
-                  ),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildSensorDataRow(
-                          "Humidity",
-                          sensor["humidity"].toString(),
-                          FontAwesomeIcons.cloudSun),
-                      _buildSensorDataRow(
-                          "Temperature",
-                          sensor["temp"].toString(),
-                          FontAwesomeIcons.thermometerHalf),
-                    ],
-                  ),
-                  Spacer(),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(),
-                      Container(
-                        child: Row(
-                          children: [
-                            Text("Motor: ",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                            Switch(
-                              value: sensor["isMotorOn"] == true,
-                              activeColor: Colors.green,
-                              onChanged: (value) =>
-                                  homeProvider.toggleMotorState("user123"),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+    Map<String, dynamic> sensor, HomeProvider homeProvider) {
+  return Column(
+    children: [
+      SizedBox(
+        height: 20,
+      ),
+      Text(
+        "${sensor["sensor_name"]} Data",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+      ),
+      Padding(
+        padding: EdgeInsets.all(16),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          color: Colors.amber.shade100,
+          elevation: 3,
+          child: Container(
+            height: 400,
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildSensorDataRow(
+                        "Moisture1",
+                        _getMoistureStatus(sensor["moisture1"]),
+                        FontAwesomeIcons.tint),
+                    _buildSensorDataRow(
+                        "Moisture2",
+                        _getMoistureStatus(sensor["moisture2"]),
+                        FontAwesomeIcons.tint),
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildSensorDataRow(
+                        "Humidity",
+                        sensor["humidity"].toString(),
+                        FontAwesomeIcons.cloudSun),
+                    _buildSensorDataRow(
+                        "Temperature",
+                        sensor["temp"].toString(),
+                        FontAwesomeIcons.thermometerHalf),
+                  ],
+                ),
+                Spacer(),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(),
+                    Container(
+                      child: Row(
+                        children: [
+                          Text("Motor: ",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                          Switch(
+                            value: sensor["isMotorOn"] == true,
+                            activeColor: Colors.green,
+                            onChanged: (value) =>
+                                homeProvider.toggleMotorState("user123"),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildSensorDataRow(String title, String value, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 120,
-        width: 120,
-        decoration: BoxDecoration(
-          color: Colors.green.shade200,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade400,
-              blurRadius: 4,
-              offset: Offset(2, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: Colors.brown,
-              size: 35,
-            ),
-            SizedBox(height: 10),
-            Text(value,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ],
-        ),
       ),
-    );
+    ],
+  );
+}
+
+String _getMoistureStatus(int moisture) {
+  if (moisture >= 0 && moisture < 1500) {
+    return "Wet";
+  } else if (moisture >= 1500 && moisture <= 3000) {
+    return "Moist";
+  } else if (moisture >= 3000 && moisture <= 4095) {
+    return "Dry";
   }
+  return "Unknown";
+}
+
+Widget _buildSensorDataRow(String title, String value, IconData icon) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      height: 120,
+      width: 120,
+      decoration: BoxDecoration(
+        color: Colors.green.shade200,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            blurRadius: 4,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: Colors.brown,
+            size: 35,
+          ),
+          SizedBox(height: 10),
+          Text(value,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    ),
+  );
+}
+ 
 
   Widget _buildPassKeyInput(HomeProvider homeProvider) {
     return Center(

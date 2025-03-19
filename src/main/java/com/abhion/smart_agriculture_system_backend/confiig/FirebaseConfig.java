@@ -63,21 +63,22 @@ public class FirebaseConfig {
 
 //     @Bean
 //     public FirebaseApp firebaseApp() throws IOException {
+//         System.out.println("----------------------------------------------------------");
+//         System.out.println(FirebaseApp.getApps().size());
 //         if (FirebaseApp.getApps().isEmpty()) {
 //             FileInputStream serviceAccount = new FileInputStream("src/main/resources/serviceAccountKey.json");
 
 //             FirebaseOptions options = FirebaseOptions.builder()
 //                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
 //                     .setDatabaseUrl(
-//                             "https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//                                 "https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app/")
 //                     .build();
-//             System.out.println(FirebaseApp.getApps().size());
 //             return FirebaseApp.initializeApp(options);
 //         } else {
 //             return FirebaseApp.getInstance();
 //         }
 //     }
-
+    
 //     @Bean
 //     public FirebaseAuth firebaseAuth(FirebaseApp firebaseApp) {
 //         return FirebaseAuth.getInstance(firebaseApp);
