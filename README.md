@@ -158,17 +158,42 @@ Built a FastAPI service to expose the ML model via REST API
 Deployed the model as an API endpoint for real-time predictions.
 
 ### 🔗 API Access via FastAPI
-📍 Endpoint: http://127.0.0.1:8000/predict
-    📨 Request :
-        {
-            "plant_type": "Money Plant",
-            "moisture_1": "Dry",
-            "moisture_2": "Moist",
-            "moisture_3": "Moist",
-            "humidity": 50.5,
-            "temperature": 25.0
-        }
+📍 Endpoint: http://127.0.0.1:8000/predict<br />
+    📨 Request :<br />
+        {<br />
+            "plant_type": "Money Plant",<br />
+            "moisture_1": "Dry",<br />
+            "moisture_2": "Moist",<br />
+            "moisture_3": "Moist",<br />
+            "humidity": 50.5,<br />
+            "temperature": 25.0<br />
+        }<br />
 
 
-# Frontend
-# Database
+# 🌿 Smart Agriculture System – Frontend & Database
+Our Smart Agriculture System features a user-friendly Flutter application with real-time sensor data monitoring and manual irrigation control. The frontend is seamlessly connected to a Firebase Realtime Database for instant updates and efficient data handling.
+
+### 🎨 Frontend (Flutter App)<br />
+✅ Built with Flutter – Cross-platform support (Android & iOS)<br />
+✅ State Management using Provider – Ensuring smooth UI updates<br />
+✅ Secure Authentication – Signup/Login with OTP verification<br />
+✅ Access Key Mechanism – Secure field data access<br />
+✅ Live Sensor Data Visualization – Monitor soil & climate conditions<br />
+✅ Manual Irrigation Control – Toggle switch to activate/deactivate the motor
+
+#### 🔄 User Flow
+1️⃣ Signup/Login – Register & authenticate users<br />
+2️⃣ OTP Verification – Secure access validation<br />
+3️⃣ Access Key Entry – Required to unlock sensor data (For now, the access key is the username itself)<br />
+4️⃣ Dashboard – View real-time sensor data & irrigation status<br />
+5️⃣ Motor Control – Manually turn ON/OFF the motor via a toggle button<br />
+
+
+#### 🗄 Database (Firebase Realtime Database)
+We use Firebase Realtime Database to store and manage all sensor data dynamically.
+
+📍 Database URL:<br />
+🔗 https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app/
+
+📂 Database Schema:<br />
+![alt text](image-1.png)
