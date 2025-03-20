@@ -1,55 +1,40 @@
-<!-- # About
-
-FYP - Smart Agriculture System using IOT Devices
-
-We have created a smart agriculture system with facilities like crop health monitoring, real time crop monitoring, manual/automatic irrigation etc. We have used iot devices like soil moisture sensors, Humidity/Temperature sensors, Arduino Uno, Esp 32, relay + Water pumping kit and Esp 32 web cam.
-
-================= FLOW ====================
-We have created a wireless sensor network in which we have considered two sensor nodes. Each sensor node consist of -
-1) Sensing Unit -> 3 Soil moisture Sensor, Dht 11 (humidity and temp sensor) , Pumping kit, Esp 32 Cam and ultrasonic Sensor.
-2) Processing unit -> ESP32 Wifi module.
-3) Power unit -> Arduino Uno (for power source and debugging).
-
-Now data is sensed from the sensor and then the data is send to Base Station (Spring boot server). From the base station, the sensors data is stored to real time firebase database.
-An flutter application is also build for monitoring the field data and manual watering the field.
-Automatic watering feature is also there.We have created an LLM Model which takes input as plant type, Soil moisture 1 ,2, 3 data, humidity data and temp data. Output 1 -> motor On and 0 -> motor off. We have used around 100k entries in raw data and the model is trained using Random Forest Classifier, getting an accuracy of 99.92%. -->
 
 
 # Smart Agriculture System Using IoT & AI
 We have developed an advanced Smart Agriculture System that leverages IoT and AI to revolutionize modern farming. Our system offers features like real-time crop monitoring, crop health analysis, and an intelligent irrigation mechanism that operates both manually and automatically.
 
-## 🚀 Key Features
-✅ Real-Time Crop Monitoring – Track field conditions remotely through a mobile app.
-✅ AI-Powered Smart Irrigation – Automatic watering based on sensor data and machine learning.
-✅ Wireless Sensor Network – Efficiently collects and transmits field data.
+#### 🚀 Key Features
+✅ Real-Time Crop Monitoring – Track field conditions remotely through a mobile app.<br />
+✅ AI-Powered Smart Irrigation – Automatic watering based on sensor data and machine learning.<br />
+✅ Wireless Sensor Network – Efficiently collects and transmits field data.<br />
 ✅ Live Camera Surveillance – ESP32 Cam for real-time field monitoring.
 
-## 🔧 System Architecture
+#### 🔧 System Architecture
 Our system is built around a Wireless Sensor Network (WSN), with each sensor node comprising:
 
-1️⃣ Sensing Unit
-📌 3 Soil Moisture Sensors – Measure water content in soil.
-📌 DHT11 Sensor – Monitors humidity & temperature.
-📌 Ultrasonic Sensor – Assesses field conditions.
-📌 ESP32 Cam – Provides live field visuals.
-📌 Water Pumping Kit – Controls irrigation.
+1️⃣ Sensing Unit<br />
+    📌 3 Soil Moisture Sensors – Measure water content in soil.<br />
+    📌 DHT11 Sensor – Monitors humidity & temperature.<br />
+    📌 Ultrasonic Sensor – Assesses field conditions.<br />
+    📌 ESP32 Cam – Provides live field visuals.<br />
+    📌 Water Pumping Kit – Controls irrigation.<br />
 
-2️⃣ Processing Unit
-🔹 ESP32 WiFi Module – Processes sensor data and transmits it wirelessly.
+2️⃣ Processing Unit<br />
+    🔹 ESP32 WiFi Module – Processes sensor data and transmits it wirelessly.
 
-3️⃣ Power Unit
-⚡ Arduino Uno – Supplies power and enables debugging.
+3️⃣ Power Unit<br />
+    ⚡ Arduino Uno – Supplies power and enables debugging.
 
-## 🔗 Data Flow & Communication
-1️⃣ Sensors collect real-time data on soil moisture, humidity, and temperature.
-2️⃣ Data is transmitted to the Base Station, built using Spring Boot, which processes and stores it in Firebase Realtime Database.
-3️⃣ A Flutter mobile application allows farmers to monitor field conditions and manually control irrigation.
-4️⃣ AI-Powered Automatic Irrigation – A machine learning model predicts whether to turn the water pump ON/OFF based on real-time sensor readings.
+#### 🔗 Data Flow & Communication
+1️⃣ Sensors collect real-time data on soil moisture, humidity, and temperature.<br />
+2️⃣ Data is transmitted to the Base Station, built using Spring Boot, which processes and stores it in Firebase Realtime Database.<br />
+3️⃣ A Flutter mobile application allows farmers to monitor field conditions and manually control irrigation.<br />
+4️⃣ AI-Powered Automatic Irrigation – A machine learning model predicts whether to turn the water pump ON/OFF based on real-time sensor readings.<br />
 
-## 🧠 AI-Powered Decision Making
-We developed a custom Large Language Model (LLM) trained with 100K+ data points to optimize irrigation decisions. The model uses input parameters such as:
-🔹 Plant Type
-🔹 Soil Moisture Levels (from 3 sensors)
+#### 🧠 AI-Powered Decision Making
+We developed a custom Large Language Model (LLM) trained with 100K+ data points to optimize irrigation decisions. The model uses input parameters such as:<br />
+🔹 Plant Type<br />
+🔹 Soil Moisture Levels (from 3 sensors)<br />
 🔹 Humidity & Temperature Data
 
 🚀 Trained with a Random Forest Classifier, achieving an impressive 99.92% accuracy!
@@ -58,30 +43,70 @@ Our Smart Agriculture System integrates IoT, AI, and cloud-based analytics to en
 
 
 
+# Backend SpringBoot Server
+This repository contains the Spring Boot backend for our Smart Agriculture System, acting as the Base Station for IoT-based crop monitoring and automated irrigation. The backend is responsible for handling authentication, processing sensor data, managing user requests, and integrating with Firebase for real-time database updates.
+
+#### 🚀 Tech Stack & Tools Used
+✅ Spring Boot – Backend framework<br />
+✅ Spring Security – Secure authentication & authorization<br />
+✅ Java Mail API – Email services for OTP verification<br />
+✅ Bcrypt – Secure password hashing<br />
+✅ Firebase – Real-time database for sensor data<br />
+✅ JJWT – JSON Web Token-based authentication<br />
+✅ Lombok – Reducing boilerplate code<br />
+✅ Docker – Containerization for seamless deployment<br />
+✅ Render – Cloud hosting platform
+
+#### 🌐 Deployment & Hosting
+The backend is hosted on Render using a Docker image for efficient server rendering.
+
+🔗 Base URL: https://fyp-54rw.onrender.com
+
+#### 🛠 Deploying the Server using Docker
+Follow these steps to build and deploy the server using Docker:
+
+1️⃣ Build Your Application<br />
+Run the following command to build the Spring Boot project:<br />
+    command -> mvn clean package<br />
+2️⃣ Build the Docker Image<br />
+    command -> docker build -t my-spring-app .<br />
+3️⃣ Tag and Push the Updated Image to Docker Hub<br />
+    command -> docker tag my-spring-app your-dockerhub-username/my-spring-app<br />
+    command -> docker push your-dockerhub-username/my-spring-app<br />
+4️⃣ Deploy on Render<br />
+✅ Create a New Web Service<br />
+Click "New +" → "Web Service"<br />
+Select "Deploy an existing image from Docker Hub"<br />
+✅ Enter Docker Image Name<br />
+In the "Public Docker Image" field, enter:<br />
+    command -> your-dockerhub-username/my-spring-app<br />
+✅ Set Environment Variables<br />
+Render does not support .env files, so environment variables must be added manually:
+
+Key	Value (Example)<br />
+FIREBASE_CONFIG	Paste your entire Firebase JSON here<br />
+PORT	8080 (Render requires this)
 
 
+#### 🔥 API Endpoints
+1️⃣ Send OTP – /auth/send-otp (POST)<br />
+    📌 Request:<br />
+            {<br />
+                "email": "abhishekprogrammer18112003@gmail.com"<br />
+            }<br />
+2️⃣ Verify OTP – /auth/verify-otp (POST)<br />
+    📌 Request:<br />
+            {<br />
+                "apiKey": "user123",<br />
+                "userName": "Abhion",<br />
+                "email": "abhishekprogrammer18112003@gmail.com",<br />
+                "password": "12345",<br />
+                "otp": "7980"<br />
+            }<br />
+3️⃣ Login – /auth/login (POST)<br />
+    📌 Request:<br />
+            {<br />
+                "email": "tech.abhishekchauhan@gmail.com",<br />
+                "password": "12345"<br />
+            }
 
-
-
-
-## Backend 
-Server is Divided into two parts.
-1) SpringBoot Server
-2) LLM model link with Python Server(Fast API).
-
-
-
-
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
