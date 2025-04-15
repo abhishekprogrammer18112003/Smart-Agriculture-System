@@ -10,12 +10,13 @@ const char password[] = "abhishek";
 #define FIREBASE_HOST "https://smart-agriculture-3816e-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define FIREBASE_AUTH "AIzaSyDaEdhRdcYII01bkKm9bgRtl6lUG9AgCXQ"
 const char apiKey[] = "user123";
-const char sensorName[] = "Sensor_system_1T";
+const char sensorName[] = "Sensor_system_1";
 bool pending = true;
 
 // Sensor Pins
-#define SOIL_MOISTURE_1 34
-#define SOIL_MOISTURE_2 35
+#define SOIL_MOISTURE_1 34  // Analog Pin for Soil Sensor 1
+#define SOIL_MOISTURE_2 35  // Analog Pin for Soil Sensor 2
+#define SOIL_MOISTURE_3 21  // Capacitive Soil Moisture Sensor (NEW)
 #define DHTPIN 4
 #define DHTTYPE DHT11
 #define RELAY_PIN 5
@@ -78,6 +79,7 @@ void resetSensorSchema() {
     Firebase.setBool(fbdo, sensorPath + "/pending", true);
     Firebase.setInt(fbdo, sensorPath + "/moisture1", 0);
     Firebase.setInt(fbdo, sensorPath + "/moisture2", 0);
+    Firebase.setInt(fbdo, sensorPath + "/moisture3", 0);  // NEW Capacitive Sensor
     Firebase.setInt(fbdo, sensorPath + "/humidity", 0);
     Firebase.setInt(fbdo, sensorPath + "/temp", 0);   
     Firebase.setBool(fbdo, sensorPath + "/isMotorOn", false);
@@ -96,58 +98,36 @@ void ensureSchemaExists() {
 
 void loop() {
     if (WiFi.status() == WL_CONNECTED) {
-        // checkPendingStatus();  // Recheck pending before sending data
-
-        // ✅ **Check Sensor Data Every 5 Seconds**
+        // ✅ **Check Sensor Data Every 3 Seconds**
         if (millis() - lastUpdate > 3000 && !pending) {
             lastUpdate = millis();
         
-                float temperature = dht.readTemperature();
-                float humidity = dht.readHumidity();
-                int soilMoisture1 = analogRead(SOIL_MOISTURE_1);
-                // int _moisture1 = ( 100 - ( (soilMoisture1/4095.00) * 100 ) );
-                int soilMoisture2 = analogRead(SOIL_MOISTURE_2);
-                // int _moisture2 = ( 100 - ( (soilMoisture2/4095.00) * 100 ) );
-                Serial.print("🌡 Temperature: ");
-                Serial.print(temperature);
-                Serial.print("°C, 💧 Humidity: ");
-                Serial.print(humidity);
-                Serial.print("%, 🌱 Soil Moisture 1: ");
-                // Serial.print(soilMoisture1);
-                Serial.print(soilMoisture1);
+            float temperature = dht.readTemperature();
+            float humidity = dht.readHumidity();
+            int soilMoisture1 = analogRead(SOIL_MOISTURE_1);
+            int soilMoisture2 = analogRead(SOIL_MOISTURE_2);
+            int soilMoisture3 = analogRead(SOIL_MOISTURE_3);  // NEW Capacitive Sensor
+            
+            Serial.print("🌡 Temperature: ");
+            Serial.print(temperature);
+            Serial.print("°C, 💧 Humidity: ");
+            Serial.print(humidity);
+            Serial.print("%, 🌱 Soil Moisture 1: ");
+            Serial.print(soilMoisture1);
+            Serial.print(", 🌱 Soil Moisture 2: ");
+            Serial.print(soilMoisture2);
+            Serial.print(", 🌱 Soil Moisture 3 (Capacitive): ");
+            Serial.println(soilMoisture3);
 
-                Serial.print(", 🌱 Soil Moisture 2: ");
-                // Serial.println(soilMoisture2);
-                Serial.print(soilMoisture2);
-
-                // ✅ Send Data to Firebase
-                sendSensorData("temp", temperature);
-                sendSensorData("humidity", humidity);
-                // String a = "" , b = "";
-                // if(soilMoisture1 <= 4095 && soilMoisture1 >= 3000){
-                //   a = "Dry";
-                // }
-                // if(soilMoisture1 <= 2999 && soilMoisture1 >= 1500){
-                //   a = "Moist";
-                // }
-                // if(soilMoisture1 <= 1499 && soilMoisture1 >= 0){
-                //   a = "Wet";
-                // }
-                // if(soilMoisture2 <= 4095 && soilMoisture2 >= 3000){
-                //   b = "Dry";
-                // }
-                // if(soilMoisture2 <= 2999 && soilMoisture2 >= 1500){
-                //   b = "Moist";
-                // }
-                // if(soilMoisture2 <= 1499 && soilMoisture2 >= 0){
-                //   b = "Wet";
-                // }
-                sendSensorData("moisture1", soilMoisture1);
-                sendSensorData("moisture2", soilMoisture2);
-        
+            // ✅ Send Data to Firebase
+            sendSensorData("temp", temperature);
+            sendSensorData("humidity", humidity);
+            sendSensorData("moisture1", soilMoisture1);
+            sendSensorData("moisture2", soilMoisture2);
+            sendSensorData("moisture3", soilMoisture3);  // NEW Capacitive Sensor
         }
 
-        // ✅ **Check Motor Status Every 2 Seconds**
+        // ✅ **Check Motor Status Every 1 Second**
         if (millis() - lastMotorCheck > 1000 && !pending) {
             lastMotorCheck = millis();
             listenForMotorStatus();
@@ -165,8 +145,7 @@ void listenForMotorStatus() {
         bool motorStatus = fbdo.boolData();
         digitalWrite(RELAY_PIN, motorStatus ? LOW : HIGH);
         if(motorStatus){
-
-          Serial.println("🚀 Motor ON");
+            Serial.println("🚀 Motor ON");
         } 
     } else {
         Serial.println("❌ Failed to get isMotorOn status: " + fbdo.errorReason());
